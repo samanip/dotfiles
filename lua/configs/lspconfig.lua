@@ -8,6 +8,7 @@ local lspconfig = require("lspconfig")
 lspconfig.servers = {
     "lua_ls",
     "pyright",
+    "rust_analyzer",
 }
 
 -- list of servers configured with default config.
@@ -61,6 +62,12 @@ lspconfig.pyright.setup({
             },
         },
     },
+})
+
+lspconfig.rust_analyzer.setup({
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
 })
 
 local actions = require("telescope.actions")
