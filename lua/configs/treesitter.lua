@@ -12,6 +12,7 @@ local options = {
         "yaml",
         "python",
         "rust",
+        "typescript",
     },
 
     highlight = {

@@ -9,19 +9,20 @@ lspconfig.servers = {
     "lua_ls",
     "pyright",
     "rust_analyzer",
+    "eslint",
 }
 
 -- list of servers configured with default config.
-local default_servers = { "pyright" }
-
--- lsps with default config
-for _, lsp in ipairs(default_servers) do
-    lspconfig[lsp].setup({
-        on_attach = on_attach,
-        on_init = on_init,
-        capabilities = capabilities,
-    })
-end
+-- local default_servers = { "pyright" }
+--
+-- -- lsps with default config
+-- for _, lsp in ipairs(default_servers) do
+--     lspconfig[lsp].setup({
+--         on_attach = on_attach,
+--         on_init = on_init,
+--         capabilities = capabilities,
+--     })
+-- end
 
 lspconfig.lua_ls.setup({
     on_attach = on_attach,
@@ -65,6 +66,12 @@ lspconfig.pyright.setup({
 })
 
 lspconfig.rust_analyzer.setup({
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+})
+
+lspconfig.eslint.setup({
     on_attach = on_attach,
     on_init = on_init,
     capabilities = capabilities,
