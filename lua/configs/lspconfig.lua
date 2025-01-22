@@ -10,6 +10,9 @@ lspconfig.servers = {
     "pyright",
     "rust_analyzer",
     "eslint",
+    "phpactor",
+    "ts_ls",
+    "omnisharp",
 }
 
 -- list of servers configured with default config.
@@ -72,6 +75,25 @@ lspconfig.rust_analyzer.setup({
 })
 
 lspconfig.eslint.setup({
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+})
+
+lspconfig.phpactor.setup({
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+})
+
+lspconfig.ts_ls.setup({
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
+})
+
+lspconfig.omnisharp.setup({
+    cmd = { "/Users/pedram/.local/share/nvim/mason/packages/omnisharp/omnisharp" },
     on_attach = on_attach,
     on_init = on_init,
     capabilities = capabilities,

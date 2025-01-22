@@ -13,6 +13,8 @@ local options = {
         "python",
         "rust",
         "typescript",
+        "php",
+        "c_sharp",
     },
 
     highlight = {
