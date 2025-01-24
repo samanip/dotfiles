@@ -60,5 +60,7 @@ end, { desc = "Next todo comment" })
 map("n", "[t", function()
     require("todo-comments").jump_prev()
 end, { desc = "Previous todo comment" })
+
+map("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
 -- Disable mappings
 local nomap = vim.keymap.del

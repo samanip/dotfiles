@@ -155,4 +155,11 @@ return {
             require("configs.mason-lspconfig")
         end,
     },
+    {
+        "stevearc/oil.nvim",
+        event = "VeryLazy",
+        config = function()
+            require("oil").setup()
+        end,
+    },
 }
