@@ -1,6 +1,14 @@
 local on_attach = require("nvchad.configs.lspconfig").on_attach
 local on_init = require("nvchad.configs.lspconfig").on_init
 local capabilities = require("nvchad.configs.lspconfig").capabilities
+local orig_util_make_position_params = vim.lsp.util.make_position_params
+vim.lsp.util.make_position_params = function(...)
+    local params = orig_util_make_position_params(...)
+    params.position = params.position or {}
+    params.position.character = params.position.character or 0
+    params.position.encoding = "utf-16"
+    return params
+end
 
 local lspconfig = require("lspconfig")
 
@@ -13,6 +21,7 @@ lspconfig.servers = {
     "phpactor",
     "ts_ls",
     "omnisharp",
+    "gopls",
 }
 
 -- list of servers configured with default config.
@@ -99,6 +108,29 @@ lspconfig.omnisharp.setup({
     capabilities = capabilities,
 })
 
+lspconfig.gopls.setup({
+    on_attach = function(client, bufnr)
+        client.server_capabilities.documentFormattingProvider = false
+        client.server_capabilities.documentRangeFormattingProvider = false
+        on_attach(client, bufnr)
+    end,
+    on_init = on_init,
+    capabilities = capabilities,
+    cmd = { "gopls" },
+    filetypes = { "go", "gomod", "gotmpl", "gowork" },
+    root_dir = lspconfig.util.root_pattern("go.work", "go.mod", ".git"),
+    settings = {
+        gopls = {
+            analyses = {
+                unusedparams = true,
+            },
+            completeUnimported = true,
+            usePlaceholders = true,
+            staticcheck = true,
+        },
+    },
+})
+
 local actions = require("telescope.actions")
 require("telescope").setup({
     defaults = {
@@ -112,3 +144,5 @@ require("telescope").setup({
         },
     },
 })
+local opts = { noremap = true, silent = true }
+vim.keymap.set("n", "<leader>fd", "<cmd>Telescope diagnostics bufnr=0<CR>", opts) -- fd for file diagnostics

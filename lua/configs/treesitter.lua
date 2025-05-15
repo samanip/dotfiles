@@ -15,6 +15,8 @@ local options = {
         "typescript",
         "php",
         "c_sharp",
+        "go",
+        "json",
     },
 
     highlight = {
